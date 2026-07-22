@@ -1,0 +1,18 @@
+CUDA_VISIBLE_DEVICES=4,5,6,7 accelerate launch --num_processes 4 tools/train_relm_streaming.py \
+  --model_path /share/project/wuhaiming/data/models/bert-base-chinese \
+  --data_glob /share/project/wuhaiming/spaces/ReLM/data/34m_confuse_gen/34m_confuse_gen.jsonl \
+  --data_mode pair \
+  --output_dir outputs/relm-34m-paper \
+  --max_seq_length 128 \
+  --per_device_train_batch_size 256 \
+  --gradient_accumulation_steps 4 \
+  --max_train_steps 60000 \
+  --learning_rate 5e-5 \
+  --warmup_ratio 0.06 \
+  --mask_mode noerror \
+  --mask_rate 0.3 \
+  --mixed_precision fp16 \
+  --save_steps 1000 \
+  --keep_last_checkpoints 3 \
+  --seed 42 \
+  --allow_nonpaper_world_size
